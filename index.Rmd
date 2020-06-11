@@ -1,0 +1,32 @@
+---
+title: "Survival analysis (1) <br> .med[Introduction]"
+author: 
+    Chaochen Wang  
+date: "2020-06-19 via hangout 10:00~11:30"
+output:
+  xaringan::moon_reader:
+    chakra: libs/remark-latest.min.js
+    css: xaringan-themer.css
+    lib_dir: libs
+    nature:
+      countdown: 60000
+      highlightStyle: github
+      highlightLines: true
+      highlightSpans: true
+      countIncrementalSlides: false
+editor_options: 
+  chunk_output_type: console
+---
+
+
+class: middle
+# Aims
+
+.full-width[.content-box-green[.bold[To introduce some of the main concepts which underlie the analysis of survival data]]]
+- Describe the features of survival data
+- Describe distributions of survival times
+    - hazard function, survival function, and distribution functions
+- Outline some particular distributions for survival times with different features
+- Prepare data for survival analysis in R
+- Estimate the parameters in R and intepret
+
