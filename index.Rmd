@@ -22,11 +22,55 @@ editor_options:
 class: middle
 # Aims
 
-.full-width[.content-box-green[.bold[To introduce some of the main concepts which underlie the analysis of survival data]]]
+.full-width[.content-box-red[.bold[To introduce some of the main concepts which underlie the analysis of survival data]]]
 - Describe the features of survival data
 - Describe distributions of survival times
     - hazard function, survival function, and distribution functions
 - Outline some particular distributions for survival times with different features
 - Prepare data for survival analysis in R
-- Estimate the parameters in R and intepret
+- Estimate the parameters in R and interpret
 
+
+
+---
+class: middle, center, inverse
+
+# What is survival analysis?
+
+---
+class: middle 
+
+# Background
+
+.full-width[.content-box-red[.bold[Survival analysis is the **study of times** at which some outcome or event of interest occurs.]]]
+
+- Example of outcomes of interest in survival analysis: 
+  - death (all causes)
+  - death following a disease diagnosis
+  - diagnosis of a disease
+- Terminology <br>
+The time at which the event occurs is referred to as a **survival/failure/event time**.
+
+
+---
+class: middle
+
+# Examples of survival study
+
+- .bold[Studying the patterns of survival in a given population over a particular time scale]
+<br> For a person born in the UK/US/Japan in a particular year, what is the probability that the person lives to age 5, 40, 100? 
+  
+- .bold[Comparing survival times for individuals in two groups, or several groups.]
+<br> After diagnosis, do patients receiving a new treatment have better survival prospects than patients receiving a standard treatment.
+  
+  
+---
+class: middle
+
+# Examples of survival study
+
+- .bold[Studying the effects of several continuous and categorical variables on survival times, taking into account possible confounding]
+<br>How is adult BMI associated with time to disease diagnosis after controlling for potential confounders?
+
+- .bold[Predicting future survival based on features of an individual]
+<br> What is the probability that an individual with features x,y,x will survive 5 years following a cancer diagnosis?
