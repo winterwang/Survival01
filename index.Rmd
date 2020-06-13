@@ -74,3 +74,11 @@ class: middle
 
 - .bold[Predicting future survival based on features of an individual]
 <br> What is the probability that an individual with features x,y,x will survive 5 years following a cancer diagnosis?
+
+
+---
+class: middle
+
+# Where do we find survival data?
+
+- In national **registers of births and deaths**
