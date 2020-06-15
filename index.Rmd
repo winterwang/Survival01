@@ -82,3 +82,63 @@ class: middle
 # Where do we find survival data?
 
 - In national **registers of births and deaths**
+- In **randomized controlled trials**, where it is of interest to study whether individuals with a particular medical condition who were randomized to a new treatment tended to live longer than individuals randomized to the standard treatment. 
+- In **prospective observational studies (cohort studies)**
+
+
+---
+class: middle
+
+### Time scale for outcome: death from all causes
+
+![](fig/time.png)
+
+.full-width[.content-box-red[.med[Considering all causes of death in a general population, such as the UK population, the time of origin is date of birth and the survival time may be measured by age in years.]]]
+
+---
+class: middle
+
+### Time scale for outcome: acute graft-versus host disease following bone marrow transplantation
+
+![](fig/time2.png)
+
+.full-width[.content-box-red[.small[Individuals who receive a bone marrow transplant are followed up from the date of transplant till the date when outcome occurs]]]
+
+
+---
+class: middle
+
+### Example 1.1: Survival of leukaemia patients in an observational study
+
+![](fig/Leukaemia.png)
+
+???
+- Survival times (time to death) in weeks of 33 leukaemia patients. 
+- They are divided into two groups according to a characteristics of their white blood cells (AG +/-)
+- Time of origin is date of diagnosis with leukaemia, and the time scale is time in weeks since diagnosis. 
+
+
+---
+class: middle 
+
+## Censoring
+
+- A particular feature that always arises in survival data from studies of human health is that not all individuals are observed to have the outcome of interest.
+
+- We say that **their survival time is "censored"**.
+
+.full-width[.content-box-red[**Administrative censoring**<br> .med[if individuals are followed up for the outcome "death", then we may wish to perform some analysis of the data before the point at which all members of the cohort have died.]]]
+
+
+---
+class: middle
+
+## Other types of censoring
+
+.full-width[.content-box-red[**Loss to follow-up** <br> .med[In both intervention studies and observational studies some individuals may be lost to follow-up, meaning that the investigators lose contact with them.]]]
+
+.full-width[.content-box-red[**Death from other causes** <br> .med[If we are interested in time to disease diagnosis then some individuals in the study population will never be diagnosed with the disease of interest and will die from another cause.]]]
+
+???
+
+It is possible to have all of these types of censoring.
