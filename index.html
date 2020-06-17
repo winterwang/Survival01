@@ -499,6 +499,25 @@ class: middle
 .full-width[.content-box-red[**Notation:** population of `\(n\)` individuals `\((i = 1, \dots, n)\)`
 - Some individuals have outcome with **survival time** `\(t_{E_i}\)`
 - Some individuals are censored with **time of censoring** `\(t_{C_i}\)`]]
+
+
+---
+class: middle
+
+# Before looking at the data
+
+.full-width[.content-box-red[.large[**Notation:** population of `\(n\)` individuals `\((i = 1, \dots, n)\)`
+- Some individuals have outcome with **survival time** `\(t_{E_i}\)`
+- Some individuals are censored with **time of censoring** `\(t_{C_i}\)`
+
+`$$\delta_{i}=\left\{ \begin{array}{ll}
+1 \text{ if } t_{E_i} \text{ observed} \\
+0 \text{ if }  t_{C_i} \text{ observed}\\ \end{array} \right.
+t_{i}=\left\{ \begin{array}{ll}
+t_{E_i} \text{ if } \delta_i = 1 \\
+t_{C_i} \text{ if } \delta_i = 0 \\ \end{array} \right.$$`
+]]]
+
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="libs/remark-latest.min.js"></script>
