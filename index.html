@@ -518,6 +518,94 @@ t_{E_i} \text{ if } \delta_i = 1 \\
 t_{C_i} \text{ if } \delta_i = 0 \\ \end{array} \right.$$`
 ]]]
 
+---
+class: middle
+
+# The data
+
+
+
+
+| Individual | Survival or &lt;br&gt; censoring time | Indicator of &lt;br&gt; outcome or censoring |
+|------------|---------------------------------|----------------------------------------|
+| `\(1\)`          | `\(t_1\)`                               | `\(\delta_1\)`                                      |
+| `\(2\)`          | `\(t_2\)`                               | `\(\delta_2\)`                                      |
+| `\(3\)`          | `\(t_3\)`                               | `\(\delta_3\)`                                      |
+| .          | .                               | .                                      |
+| .          | .                               | .                                      |
+| .          | .                               | .                                      |
+| `\(n\)`          | `\(t_n\)`                               | `\(\delta_n\)`                                      |
+
+
+---
+class: middle
+
+# The actual data
+
+| Individual | Date of &lt;br&gt; time origin | Date of event &lt;br&gt; or censoring | Indicator of &lt;br&gt; outcome or censoring |
+|------------|--------------------------|---------------------------------|----------------------------------------|
+| `\(1\)`          | 20Jan2012                | 05Dec2012                       | `\(1\)`                                      |
+| `\(2\)`          | 04Nov2012                | 31Dec2013                       | `\(0\)`                                      |
+| `\(.\)`          | .                        | .                               | `\(.\)`                                      |
+| `\(.\)`          | .                        | .                               | `\(.\)`                                      |
+| `\(.\)`          | .                        | .                               | `\(.\)`                                      |
+| `\(n\)`          | 27Feb2012                | 31Dec2013                       | `\(0\)`                                      |
+
+
+---
+class: middle
+
+# Likelihoods for survival data
+
+.large[
+IF we had no censoring to worry about then the likelihood for survival data would take the same form as the likelihoods for continuous data: 
+
+$$
+L = \prod_{i = 1}^n f(t_i)
+$$
+
+
+Where `\(f(t_i)\)` is the **probability density function**. 
+&lt;br&gt;Examaple of exponential distribution: `\(L = \prod_{i = 1}^n\lambda e^{-\lambda t_i}\)`
+]
+
+
+---
+class: middle
+
+# Incorporating censoring into the likelihood
+
+.large[
+- For a censored individual `\(i\)`, we observe that the person survived at least up to time `\(t_i\)` 
+- The probability that their unobserved survival time is beyond `\(t_i\)` is the survivor function `\(S(t_i) = \text{Pr}(T &gt; t_i)\)`
+]
+
+.full-width[.content-box-red[
+.large[**Full likelihood for survival data with censoring:**] 
+`$$L = \prod_{\text{Survival times}} f(t_{E_i})\color{darkred}{\prod_{\text{censoring times}}S(t_{C_i})}$$`
+]]
+
+---
+class: middle 
+
+# Maximum likelihood estimates
+
+
+.large[**Full likelihood for survival data with censoring:**] 
+$$
+`\begin{aligned}
+L &amp; = \prod_{\text{Survival times}} f(t_{E_i})\color{darkred}{\prod_{\text{censoring times}}S(t_{C_i})} \\
+  &amp; = \prod_{i = 1}^n f(t_i)^{\delta_i} S(t_i)^{1 - \delta_i} \\
+\log L &amp; = \sum_{i = 1}^n\delta_i \log f(t_i) + \sum_{i = 1}^n (1 - \delta_i) \log S(t_i) \\ 
+\text{MLEs:} &amp; \;\;\;\;\; \frac{d \log L}{d\theta} = 0
+\end{aligned}`
+$$
+
+
+---
+class: middle, center, inverse
+
+# Practical
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="libs/remark-latest.min.js"></script>
