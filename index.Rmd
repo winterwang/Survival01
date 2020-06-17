@@ -24,14 +24,15 @@ class: middle
 # Aims
 
 .full-width[.content-box-red[.bold[To introduce some of the main concepts which underlie the analysis of survival data]]]
+
+.big[
 - Describe the features of survival data
 - Describe distributions of survival times
     - hazard function, survival function, and distribution functions
 - Outline some particular distributions for survival times with different features
 - Prepare data for survival analysis in R
 - Estimate the parameters in R and interpret
-
-
+]
 
 ---
 class: middle, center, inverse
@@ -45,49 +46,53 @@ class: middle
 
 .full-width[.content-box-red[.bold[Survival analysis is the **study of times** at which some outcome or event of interest occurs.]]]
 
+.big[
 - Example of outcomes of interest in survival analysis: 
   - death (all causes)
   - death following a disease diagnosis
   - diagnosis of a disease
 - Terminology <br>
 The time at which the event occurs is referred to as a **survival/failure/event time**.
-
+]
 
 ---
 class: middle
 
 # Examples of survival study
 
+.big[
 - .bold[Studying the patterns of survival in a given population over a particular time scale]
 <br> For a person born in the UK/US/Japan in a particular year, what is the probability that the person lives to age 5, 40, 100? 
   
 - .bold[Comparing survival times for individuals in two groups, or several groups.]
 <br> After diagnosis, do patients receiving a new treatment have better survival prospects than patients receiving a standard treatment.
-  
-  
+]  
+
 ---
 class: middle
 
 # Examples of survival study
 
+.big[
 - .bold[Studying the effects of several continuous and categorical variables on survival times, taking into account possible confounding]
 <br>How is adult BMI associated with time to disease diagnosis after controlling for potential confounders?
 
 - .bold[Predicting future survival based on features of an individual]
 <br> What is the probability that an individual with features x,y,x will survive 5 years following a cancer diagnosis?
-
+]
 
 ---
 class: middle
 
 # Where do we find survival data?
 
+.big[
 - In national **registers of births and deaths**
 
 - In **randomized controlled trials**, where it is of interest to study whether individuals with a particular medical condition who were randomized to a new treatment tended to live longer than individuals randomized to the standard treatment. 
 
 - In **prospective observational studies (cohort studies)**
-
+]
 
 ---
 class: middle
@@ -95,10 +100,10 @@ class: middle
 ## Time scale for outcome: death from all causes
 
 
+.full-width[.content-box-red[.bet[.bold[Considering all causes of death in a general population, such as the UK population, the time of origin is date of birth and the survival time may be measured by age in years.]]]]
+
 <img src="fig/time.png" alt="［写真］"class="med"> 
 
-
-.full-width[.content-box-red[.bet[.bold[Considering all causes of death in a general population, such as the UK population, the time of origin is date of birth and the survival time may be measured by age in years.]]]]
 
 ---
 class: top
@@ -133,9 +138,11 @@ class: middle
 
 ## Censoring
 
+.large[
 - A particular feature that always arises in survival data from studies of human health is that not all individuals are observed to have the outcome of interest.
 
 - We say that **their survival time is "censored"**.
+]
 
 .full-width[.content-box-red[.bold[**Administrative censoring**<br> .bet[if individuals are followed up for the outcome "death", then we may wish to perform some analysis of the data before the point at which all members of the cohort have died.]]]]
 
@@ -159,17 +166,20 @@ class: middle
 
 ## Feature of survival data: censoring
 
+.large[
 - Instead of observing the time of the outcome for each individual (the survival time), for some individuals we only observe a time up to which we know they have not had the outcome.
 
 - This is referred to as **right censoring** and it must be accounted for in our analyses. 
 
 - **The information from censored survival times is still informative - it tells us a person lived at least that long.** 
+]
 
 ---
 class: middle
 
 ## An important assumption for censoring
 
+.large[
 .full-width[
 .content-box-red[.bold[
 - It will be assumed that **censoring is uninformative about event times**.
@@ -177,14 +187,16 @@ class: middle
 - This means that the time at which an individual is censored, or the fact that they are censored, does not give us any information about when that person may/may not have the event.
 ]]
 ]
+]
 
 ---
 class: top
 
 ## Left-truncations
 
+.large[
 - **Left-truncation** is another feature of some survival data - also called **delayed entry**
-
+]
 
 .rightbottom[
 <img src="fig/Left-truncation.png" alt="［写真］"> 
@@ -214,11 +226,12 @@ class: middle
 
 # Simple analyses
 
+.large[
 The patterns of observed survival times can be analyzed in a simple way:
 
 - by looking at histograms of survival times
 - by producing summary statistics, e.g. median survival times
-
+]
 
 ---
 class: top, center
@@ -235,6 +248,7 @@ class: middle
 
 # Simple ananlyses 
 
+.large[
 - But how do we accommodate **censoring**?
 
 - Perhaps by summarising survival times and censoring times separately:
@@ -242,34 +256,37 @@ class: middle
     - median event time, median censoring time
 
 - To make progress, we need to be able to describe survival times in a formalised way. 
-
+]
 
 ---
 class: middle
 
 # Simple analyses
 
+.large[
 - Simple summaries could be extended to look separately within two or more different exposure groups. 
 
---
 - But we can do better
 
 - In order to adjust for confounders (continuous/categorical variables) we need to use **regression-based approaches**.
 
 - Methods of analysis need to handle censoring and need to allow for the fact that **survival times are strictly non-negative**
+]
 
 ---
 class: middle
 
 # Analysing survival data
 
+.large[
 - Fully parametric methods [1,3,6]
 
 - Non-parametric methods [2]
 
 - Semi-parametric methods [4,5,..]
     - including the Cox proportional hazard model
-    
+]
+
 ---
 class: center, inverse, middle
 
@@ -281,9 +298,11 @@ class: middle
 
 # Preliminaries
 
+.big[
 - All of the methods we consider depend on us being able to describe survival data in way which is meaningful for the question of interest
 
 - We define **a random variable** $T$, which represents survival time
+]
 
 .full-width[
 .content-box-red[.bold[
@@ -350,4 +369,120 @@ class: middle
 $$f(t) = \frac{d}{dt}F(t) = \lim_{\delta \rightarrow 0} \frac{1}{\delta}\text{Pr}(t \leqslant T < t + \delta)$$
 ]
 ]
+]
+
+
+---
+class: middle 
+# Describing survival distributions
+
+.full-width[
+.content-box-red[
+.bold[
+$$S(t) = \text{Pr}(T>t) \\h(t) = \lim_{\delta \rightarrow 0}\frac{1}{\delta}\text{Pr}(t\leqslant T < t + \delta | T \geqslant t) \\ f(t) = \lim_{\delta \rightarrow 0} \frac{1}{\delta}\text{Pr}(t \leqslant T < t + \delta)$$
+]
+]
+]
+
+---
+class: middle
+
+## **Relationships between** $S(t), h(t), H(t), f(t)$
+
+.pull-left[.small[
+$$
+\begin{aligned}
+f(t) & = \frac{\text{d}}{\text{d}t}F(t)  = \frac{\text{d}}{\text{d}t}\{ 1-S(t) \}  \\ &= - \frac{\text{d}}{\text{d}t}S(t) \\
+S(t) & = 1 - F(t)  = 1 - \int_0^t f(u)\text{d}u \\ &= \int_t^\infty f(u)\text{d}u \\
+h(t) & = \lim_{\delta\rightarrow0}\frac{1}{\delta}\text{Pr}(t \leqslant T < t+ \delta | T > t) \\
+     & = \lim_{\delta\rightarrow0}\frac{1}{\delta}\frac{\text{Pr}(t \leqslant T < t+ \delta, T > t)}{\text{Pr}(T > t)} \\  &(\text{Bayes' Theroem}) \\
+     & = \lim_{\delta\rightarrow0}\frac{1}{\delta}\frac{\text{Pr}(t \leqslant T < t+ \delta)}{\text{Pr}(T > t)} = \frac{f(t)}{S(t)}\\
+\end{aligned}
+$$
+]]
+
+.pull-right[.small[
+$$
+\begin{aligned}
+h(t) & = \frac{f(t)}{S(t)} = \frac{\frac{\text{d}}{\text{d}t}F(t)}{S(t)}  \\
+     & = \frac{- \frac{\text{d}}{\text{d}t}S(t)}{S(t)} \\ 
+     & = -\frac{d\log[S(t)]}{dS(t)}\cdot\frac{dS(t)}{dt}  \\ 
+     & = - \frac{\text{d}}{\text{d}t}\text{log}[S(t)] (\text{chain rule}) \\
+\end{aligned}
+$$
+]]
+
+
+---
+class: middle, center, inverse
+
+# Parametric Distributions of <br>survival times
+
+
+---
+class: middle
+
+# The simplest distribution for survival data
+
+.full-width[.content-box-red[.bold[.large[
+**The exponential distribution (指數分佈)** under the exponential distribution the hazard rate is constant over time: $\lambda$: 
+
+$$
+h(t) = \lambda, \;\;\; S(t) = e^{-\lambda t},  \;\;\; f(t) = \lambda e^{-\lambda t}
+$$
+]]]]
+
+
+---
+class: top, center
+background-image: url("./fig/ExpoentialDistr.png")
+background-position: 50% 50%
+background-size: contain
+
+
+---
+class: middle
+
+# Another distribution for survival times
+
+.large[
+- The exponential distribution will often be unsuitable for studies of human health because we usually expect that **the rate at which the outcome occurs will change over time**. 
+
+- i.e. the hazard function $h(t)$ is not constant
+
+- e.g. the death rate increases with increasing age
+]
+
+.full-width[.content-box-red[
+**The Weibull distribution**: 
+$h(t)  = \kappa\lambda t^{\kappa - 1} ; \;\;\; S(t)  = \exp(-\lambda t^\kappa) ; \;\;\; f(t)  = \kappa \lambda t^{\kappa - 1} \exp(-\lambda t^\kappa)$
+]]
+
+
+---
+class: middle
+
+# The Weibull distribution
+
+.full-width[.content-box-red[.large[
+**The Weibull distribution has 2 parameters, allowing flexibility in the shape of the hazard function.**:] 
+$h(t)  = \kappa\lambda t^{\kappa - 1} ; \;\;\; S(t)  = \exp(-\lambda t^\kappa) ; \;\;\; f(t)  = \kappa \lambda t^{\kappa - 1} \exp(-\lambda t^\kappa)$
+]]
+
+
+---
+class: top, center
+background-image: url("./fig/WeibullDistr.png")
+background-position: 50% 50%
+background-size: contain
+
+---
+class: middle
+
+# Other distributions
+
+.large[
+- There are many other distributions for survival data which have different features
+
+- In the practical we will explore about log-logistic distribution
 ]

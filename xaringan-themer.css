@@ -174,7 +174,9 @@ table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
   }
 }
 
-.large { font-size: 130% }
+.big{ font-size: 110% }
+.large { font-size: 120% }
+.larger { font-size: 130% }
 .med { font-size: 85% }
 .small { font-size: 70% }
 .between { font-size: 60% }
@@ -373,9 +375,9 @@ height: 65%;
 
 .rightbottom{
  width:55%;
- height: 78%;
+ height: 55%;
  position:absolute;
- bottom: -1px;
+ bottom: 90px;
  right:180px;
  }
  
