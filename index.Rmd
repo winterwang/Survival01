@@ -14,6 +14,7 @@ output:
       highlightLines: true
       highlightSpans: true
       countIncrementalSlides: false
+      ratio: 16:9
 editor_options: 
   chunk_output_type: console
 ---
@@ -82,35 +83,44 @@ class: middle
 # Where do we find survival data?
 
 - In national **registers of births and deaths**
+
 - In **randomized controlled trials**, where it is of interest to study whether individuals with a particular medical condition who were randomized to a new treatment tended to live longer than individuals randomized to the standard treatment. 
+
 - In **prospective observational studies (cohort studies)**
 
 
 ---
 class: middle
 
-### Time scale for outcome: death from all causes
+## Time scale for outcome: death from all causes
 
-![](fig/time.png)
 
-.full-width[.content-box-red[.med[Considering all causes of death in a general population, such as the UK population, the time of origin is date of birth and the survival time may be measured by age in years.]]]
+<img src="fig/time.png" alt="［写真］"class="med"> 
 
----
-class: middle
 
-### Time scale for outcome: acute graft-versus host disease following bone marrow transplantation
-
-![](fig/time2.png)
-
-.full-width[.content-box-red[.small[Individuals who receive a bone marrow transplant are followed up from the date of transplant till the date when outcome occurs]]]
-
+.full-width[.content-box-red[.bet[.bold[Considering all causes of death in a general population, such as the UK population, the time of origin is date of birth and the survival time may be measured by age in years.]]]]
 
 ---
-class: middle
+class: top
+
+## Time scale for outcome: acute graft-versus host disease following bone marrow transplantation
+
+
+
+.full-width[.content-box-red[.bet[.bold[Individuals who receive a bone marrow transplant are followed up from the date of transplant till the date when outcome occurs]]]]
+
+.bottom[
+<img src="fig/time2.png"> 
+]
+
+---
+class: top
 
 ### Example 1.1: Survival of leukaemia patients in an observational study
 
+.middlebottom[
 ![](fig/Leukaemia.png)
+]
 
 ???
 - Survival times (time to death) in weeks of 33 leukaemia patients. 
@@ -127,7 +137,7 @@ class: middle
 
 - We say that **their survival time is "censored"**.
 
-.full-width[.content-box-red[**Administrative censoring**<br> .med[if individuals are followed up for the outcome "death", then we may wish to perform some analysis of the data before the point at which all members of the cohort have died.]]]
+.full-width[.content-box-red[.bold[**Administrative censoring**<br> .bet[if individuals are followed up for the outcome "death", then we may wish to perform some analysis of the data before the point at which all members of the cohort have died.]]]]
 
 
 ---
@@ -135,10 +145,209 @@ class: middle
 
 ## Other types of censoring
 
-.full-width[.content-box-red[**Loss to follow-up** <br> .med[In both intervention studies and observational studies some individuals may be lost to follow-up, meaning that the investigators lose contact with them.]]]
+.full-width[.content-box-red[.bold[**Loss to follow-up** <br> .bet[In both intervention studies and observational studies some individuals may be lost to follow-up, meaning that the investigators lose contact with them.]]]]
 
-.full-width[.content-box-red[**Death from other causes** <br> .med[If we are interested in time to disease diagnosis then some individuals in the study population will never be diagnosed with the disease of interest and will die from another cause.]]]
+.full-width[.content-box-red[.bold[**Death from other causes** <br> .bet[If we are interested in time to disease diagnosis then some individuals in the study population will never be diagnosed with the disease of interest and will die from another cause.]]]]
 
 ???
 
 It is possible to have all of these types of censoring.
+
+
+---
+class: middle
+
+## Feature of survival data: censoring
+
+- Instead of observing the time of the outcome for each individual (the survival time), for some individuals we only observe a time up to which we know they have not had the outcome.
+
+- This is referred to as **right censoring** and it must be accounted for in our analyses. 
+
+- **The information from censored survival times is still informative - it tells us a person lived at least that long.** 
+
+---
+class: middle
+
+## An important assumption for censoring
+
+.full-width[
+.content-box-red[.bold[
+- It will be assumed that **censoring is uninformative about event times**.
+
+- This means that the time at which an individual is censored, or the fact that they are censored, does not give us any information about when that person may/may not have the event.
+]]
+]
+
+---
+class: top
+
+## Left-truncations
+
+- **Left-truncation** is another feature of some survival data - also called **delayed entry**
+
+
+.rightbottom[
+<img src="fig/Left-truncation.png" alt="［写真］"> 
+]
+
+---
+class: top
+
+## Example 1.2: Time to remission for leukaemia patients
+
+.middle1bottom[
+<img src="fig/Leukaemia-remission.png"> 
+]
+
+???
+How can we compare the survival times in the treatment and control groups? considering the censoring?
+
+
+---
+class: middle, center, inverse
+
+# Analysis of survival data
+
+
+---
+class: middle
+
+# Simple analyses
+
+The patterns of observed survival times can be analyzed in a simple way:
+
+- by looking at histograms of survival times
+- by producing summary statistics, e.g. median survival times
+
+
+---
+class: top, center
+background-image: url("./fig/Histime.png")
+background-position: 50% 50%
+background-size: contain
+
+<!-- # Simple analyses -->
+<!-- <img src="fig/Histime.png" alt="［写真］" class="med">  -->
+
+
+---
+class: middle
+
+# Simple ananlyses 
+
+- But how do we accommodate **censoring**?
+
+- Perhaps by summarising survival times and censoring times separately:
+    - range of event and censoring times
+    - median event time, median censoring time
+
+- To make progress, we need to be able to describe survival times in a formalised way. 
+
+
+---
+class: middle
+
+# Simple analyses
+
+- Simple summaries could be extended to look separately within two or more different exposure groups. 
+
+--
+- But we can do better
+
+- In order to adjust for confounders (continuous/categorical variables) we need to use **regression-based approaches**.
+
+- Methods of analysis need to handle censoring and need to allow for the fact that **survival times are strictly non-negative**
+
+---
+class: middle
+
+# Analysing survival data
+
+- Fully parametric methods [1,3,6]
+
+- Non-parametric methods [2]
+
+- Semi-parametric methods [4,5,..]
+    - including the Cox proportional hazard model
+    
+---
+class: center, inverse, middle
+
+# Describing survival data
+
+
+---
+class: middle
+
+# Preliminaries
+
+- All of the methods we consider depend on us being able to describe survival data in way which is meaningful for the question of interest
+
+- We define **a random variable** $T$, which represents survival time
+
+.full-width[
+.content-box-red[.bold[
+.bet[Three ways in which the distribution of the random variable $T$ can be described: (they are all related)
+1. The survival function
+2. The hazard function
+3. The probability density function.
+]]]
+]
+
+---
+class: middle
+
+# The survivor function
+
+.full-width[
+.content-box-red[
+.bold[
+**Definition** 
+The survivor function at a time $t$ is the probability that the survival time $T$ exceeds a value $t$:
+$$S(t) = \text{Pr}(T>t)$$
+]
+]
+]
+
+**Example:** if $T$ denotes age at death in the population, then the survivor function at age 80 ( $t$ = 80 ) is $S(80) = \text{Pr}(T > 80)$. 
+
+The relation to the cumulative distribution function is $F(t) = \text{Pr}(T \leqslant t) = 1 - \text{Pr}(T > t) = 1 - S(t)$
+
+
+---
+class: top
+# The hazard function
+
+.full-width[
+.content-box-red[
+.bold[
+**Definition** the hazard function at time $t$ can be thought of as the probability that the outcome occurs in a (very) short time instant after $t$ given that the outcome did not occur up to time $t$, divided by the length of time $\delta$, therefore giving a rate. When $\delta \rightarrow 0$, it becomes smooth function over time
+$$h(t) = \lim_{\delta \rightarrow 0}\frac{1}{\delta}\text{Pr}(t\leqslant T < t + \delta | T \geqslant t)$$
+]
+]
+]
+
+**Cumulative hazard** $H(t) = \int_0^t h(u) du$ 
+
+
+---
+class: middle, center
+
+# Example from [https://understandinguncertainty.org/](https://understandinguncertainty.org/files/animations/Survival1/Survival.html)
+
+(click the link in a chrome/firefox browser)
+
+
+---
+class: middle
+
+# The probability density function
+
+.full-width[
+.content-box-red[
+.bold[
+**Definition** The probability density function at time $t$ is defined as
+$$f(t) = \frac{d}{dt}F(t) = \lim_{\delta \rightarrow 0} \frac{1}{\delta}\text{Pr}(t \leqslant T < t + \delta)$$
+]
+]
+]
