@@ -224,10 +224,11 @@ table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
 .content-box-red,
 .content-box-yellow {
     border-radius: 15px;
-    margin: 0 0 25px;
+    margin: 10px 20px 20px;
     overflow: hidden;
-    padding: 20px;
+    padding: 0em 0em 0em 1em;
     width: 100%;
+    border: solid #13393A 1px;
 }
 
 .content-box-blue {
@@ -378,7 +379,7 @@ height: 65%;
  height: 55%;
  position:absolute;
  bottom: 90px;
- right:180px;
+ right:260px;
  }
  
 .bottom{
