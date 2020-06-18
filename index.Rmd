@@ -600,6 +600,7 @@ class: middle
 
 
 .large[**Full likelihood for survival data with censoring:**] 
+
 $$
 \begin{aligned}
 L & = \prod_{\text{Survival times}} f(t_{E_i})\color{darkred}{\prod_{\text{censoring times}}S(t_{C_i})} \\
@@ -614,3 +615,95 @@ $$
 class: middle, center, inverse
 
 # Practical
+
+
+---
+class: middle
+
+# Data
+
+.large[
+- Primary Biliary Cirrhosis (PBC) data: this data is from a multicentre, double-blind, clinical trial for the treatment of Primary Biliary Cirrhosis (PBC) (file as `.dta`)
+]
+
+---
+class: middle
+
+# Read in the data
+
+.pull-left[
+.large[
+What is given in the following variables?] `d, datein, dateout, time`
+{{content}}
+]
+
+
+.pull-right[.med[
+```{r}
+library(haven)
+pbcbase <- read_dta("data/pbcbase.dta")
+head(pbcbase[,1:5])
+```
+]
+]
+
+
+
+
+--
+<br><br>`d`: the event indicator
+{{content}}
+
+--
+<br>`datein`: date enter the study
+{{content}}
+
+--
+<br>`dateout`: date when event occurred or censored
+{{content}}
+
+--
+<br>`time`: the time difference in years 
+{{content}}
+
+
+
+
+---
+class: middle
+
+# What do you think is the appropriate time scale in the PBC study?
+
+--
+.large[
+This is a trial comparing two treatments. individuals entered the trial at the date given in `datein` and exited at `dateout` (due to death or censoring). The appropriate time scale is **time of follow-up**. The aim is to compare the length of survival of individuals randomized to the two treatments. 
+]
+
+
+---
+class: middle
+
+# How many individuals have the outcome of interest (death) and how many are censored?
+
+--
+```{r message=FALSE, eval=FALSE}
+library(tidyverse)
+pbcbase %>% 
+  group_by(d) %>% 
+  summarise(n= n(), mean_y = mean(time), 
+             med_y = median(time), min_y = min(time),
+             max_y = max(time)) %>%
+  mutate(rel.freq = paste0(round(100 * n/sum(n), 2), "%"))  
+```
+
+--
+```
+      d     n mean_y med_y  min_y max_y rel.freq
+  <dbl> <int>  <dbl> <dbl>  <dbl> <dbl> <chr>   
+1     0    95   4.59  4.62 0      11.6  49.74%  
+2     1    96   3.24  2.85 0.0246  9.26 50.26% 
+```
+
+???
+There are 96 deaths and 95 censored survival times. The first death occurred 0.025 years after the start of follow-up and the last death occurred 9.26 years after the start of follow-up. The minimum censoring time was 0 years, meaning that one or more individuals were not seen again after they joined the study. The individual who was followed up for the longest was observed until 11.64 years after joining the study, at which time they were censored. The median time of death was 2.85 years after the start of follow up and the median time of follow-up for censored individuals was 4.62 years. Because this is a trial, for a report it would also be a good idea to report summary statistics such as those given here separately by treatment group. There are 96 deaths and 95 censored survival times. The first death occurred 0.025 years after the start of follow-up and the last death occurred 9.26 years after the start of follow-up. The minimum censoring time was 0 years, meaning that one or more individuals were not seen again after they joined the study. The individual who was followed up for the longest was observed until 11.64 years after joining the study, at which time they were censored. The median time of death was 2.85 years after the start of follow up and the median time of follow-up for censored individuals was 4.62 years. Because this is a trial, for a report it would also be a good idea to report summary statistics such as those given here separately by treatment group. 
+

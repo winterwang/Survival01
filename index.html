@@ -592,6 +592,7 @@ class: middle
 
 
 .large[**Full likelihood for survival data with censoring:**] 
+
 $$
 `\begin{aligned}
 L &amp; = \prod_{\text{Survival times}} f(t_{E_i})\color{darkred}{\prod_{\text{censoring times}}S(t_{C_i})} \\
@@ -606,6 +607,112 @@ $$
 class: middle, center, inverse
 
 # Practical
+
+
+---
+class: middle
+
+# Data
+
+.large[
+- Primary Biliary Cirrhosis (PBC) data: this data is from a multicentre, double-blind, clinical trial for the treatment of Primary Biliary Cirrhosis (PBC) (file as `.dta`)
+]
+
+---
+class: middle
+
+# Read in the data
+
+.pull-left[
+.large[
+What is given in the following variables?] `d, datein, dateout, time`
+{{content}}
+]
+
+
+.pull-right[.med[
+
+```r
+library(haven)
+pbcbase &lt;- read_dta("data/pbcbase.dta")
+head(pbcbase[,1:5])
+```
+
+```
+## # A tibble: 6 x 5
+##      id datein     dateout     time     d
+##   &lt;dbl&gt; &lt;date&gt;     &lt;date&gt;     &lt;dbl&gt; &lt;dbl&gt;
+## 1     5 1980-02-19 1981-09-19  1.58     1
+## 2    22 1980-08-22 1980-08-22  0        0
+## 3    23 1980-07-22 1989-08-02  9.03     0
+## 4    40 1980-08-08 1982-11-21  2.29     1
+## 5    42 1980-09-06 1982-10-05  2.08     1
+## 6    45 1980-02-09 1985-06-02  5.31     1
+```
+]
+]
+
+
+
+
+--
+&lt;br&gt;&lt;br&gt;`d`: the event indicator
+{{content}}
+
+--
+&lt;br&gt;`datein`: date enter the study
+{{content}}
+
+--
+&lt;br&gt;`dateout`: date when event occurred or censored
+{{content}}
+
+--
+&lt;br&gt;`time`: the time difference in years 
+{{content}}
+
+
+
+
+---
+class: middle
+
+# What do you think is the appropriate time scale in the PBC study?
+
+--
+.large[
+This is a trial comparing two treatments. individuals entered the trial at the date given in `datein` and exited at `dateout` (due to death or censoring). The appropriate time scale is **time of follow-up**. The aim is to compare the length of survival of individuals randomized to the two treatments. 
+]
+
+
+---
+class: middle
+
+# How many individuals have the outcome of interest (death) and how many are censored?
+
+--
+
+```r
+library(tidyverse)
+pbcbase %&gt;% 
+  group_by(d) %&gt;% 
+  summarise(n= n(), mean_y = mean(time), 
+             med_y = median(time), min_y = min(time),
+             max_y = max(time)) %&gt;%
+  mutate(rel.freq = paste0(round(100 * n/sum(n), 2), "%"))  
+```
+
+--
+```
+      d     n mean_y med_y  min_y max_y rel.freq
+  &lt;dbl&gt; &lt;int&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;   
+1     0    95   4.59  4.62 0      11.6  49.74%  
+2     1    96   3.24  2.85 0.0246  9.26 50.26% 
+```
+
+???
+There are 96 deaths and 95 censored survival times. The first death occurred 0.025 years after the start of follow-up and the last death occurred 9.26 years after the start of follow-up. The minimum censoring time was 0 years, meaning that one or more individuals were not seen again after they joined the study. The individual who was followed up for the longest was observed until 11.64 years after joining the study, at which time they were censored. The median time of death was 2.85 years after the start of follow up and the median time of follow-up for censored individuals was 4.62 years. Because this is a trial, for a report it would also be a good idea to report summary statistics such as those given here separately by treatment group. There are 96 deaths and 95 censored survival times. The first death occurred 0.025 years after the start of follow-up and the last death occurred 9.26 years after the start of follow-up. The minimum censoring time was 0 years, meaning that one or more individuals were not seen again after they joined the study. The individual who was followed up for the longest was observed until 11.64 years after joining the study, at which time they were censored. The median time of death was 2.85 years after the start of follow up and the median time of follow-up for censored individuals was 4.62 years. Because this is a trial, for a report it would also be a good idea to report summary statistics such as those given here separately by treatment group. 
+
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="libs/remark-latest.min.js"></script>
