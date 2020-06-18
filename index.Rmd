@@ -465,8 +465,10 @@ class: middle
 # The Weibull distribution
 
 .full-width[.content-box-red[.large[
-**The Weibull distribution has 2 parameters, allowing flexibility in the shape of the hazard function.**:] 
-$h(t)  = \kappa\lambda t^{\kappa - 1} ; \;\;\; S(t)  = \exp(-\lambda t^\kappa) ; \;\;\; f(t)  = \kappa \lambda t^{\kappa - 1} \exp(-\lambda t^\kappa)$
+**The Weibull distribution has 2 parameters, allowing flexibility in the shape of the hazard function**:] 
+$$
+h(t)  = \kappa\lambda t^{\kappa - 1} ; \;\;\; S(t)  = \exp(-\lambda t^\kappa) ; \;\;\; f(t)  = \kappa \lambda t^{\kappa - 1} \exp(-\lambda t^\kappa)
+$$
 ]]
 
 
@@ -879,3 +881,36 @@ n= 100
 ???
 
 `1.53` = -log(0.2165)
+
+---
+class: middle
+
+# Explore Weibull distribution
+
+.pull-left[
+.med[
+```{r eval=FALSE}
+wei.haz <- function(x, lambda, kappa) {
+ `lambda `*` kappa `*` x^(kappa - 1)`
+}
+curve(wei.haz(x, 0.2, 0.5), ylim = c(0,0.8), 
+      xlab = "Time", ylab = "Hazard function")
+curve(wei.haz(x, 0.2, 1.5), add = TRUE, col = "blue")
+curve(wei.haz(x, 0.2, 1), add = TRUE, lty = 2)
+curve(wei.haz(x, 0.2, 2), add = TRUE, col = "red")
+curve(wei.haz(x, 0.2, 5), add = TRUE, col = "green")
+```
+]
+
+$$
+h(t)  = \kappa\lambda t^{\kappa - 1}
+$$
+
+]
+
+.pull-right[
+```{r echo=FALSE}
+knitr::include_graphics("fig/WeibullHazard.png")
+```
+
+]
