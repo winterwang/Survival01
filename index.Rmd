@@ -623,13 +623,14 @@ class: middle
 # Data
 
 .large[
-- Primary Biliary Cirrhosis (PBC) data: this data is from a multicentre, double-blind, clinical trial for the treatment of Primary Biliary Cirrhosis (PBC) (file as `.dta`)
+- Primary Biliary Cirrhosis (PBC) data: this data is from a multicentre, double-blind, clinical trial for the treatment of Primary Biliary Cirrhosis (PBC) ([file](data/pbcbase.dta) as `.dta`)
+- Whitehall Study data: this is a cohort study started in 1967, of risk factors for mortality in British male civil servants employed in various government departments. (file as `.dta`)
 ]
 
 ---
 class: middle
 
-# Read in the data
+# Read in the PBC data
 
 .pull-left[
 .large[
@@ -707,3 +708,174 @@ pbcbase %>%
 ???
 There are 96 deaths and 95 censored survival times. The first death occurred 0.025 years after the start of follow-up and the last death occurred 9.26 years after the start of follow-up. The minimum censoring time was 0 years, meaning that one or more individuals were not seen again after they joined the study. The individual who was followed up for the longest was observed until 11.64 years after joining the study, at which time they were censored. The median time of death was 2.85 years after the start of follow up and the median time of follow-up for censored individuals was 4.62 years. Because this is a trial, for a report it would also be a good idea to report summary statistics such as those given here separately by treatment group. There are 96 deaths and 95 censored survival times. The first death occurred 0.025 years after the start of follow-up and the last death occurred 9.26 years after the start of follow-up. The minimum censoring time was 0 years, meaning that one or more individuals were not seen again after they joined the study. The individual who was followed up for the longest was observed until 11.64 years after joining the study, at which time they were censored. The median time of death was 2.85 years after the start of follow up and the median time of follow-up for censored individuals was 4.62 years. Because this is a trial, for a report it would also be a good idea to report summary statistics such as those given here separately by treatment group. 
 
+---
+class: middle
+
+# Dead in the Whitehall data
+
+
+.pull-left[
+What is given in the following variables? What is special about 30th Jan 1987?<br>`timein, timeout, timebth`{{content}}
+]
+
+
+.pull-right[
+```{r}
+whitehall <- read_dta("data/whitehall.dta")
+head(whitehall[,c(12:14)])
+```
+]
+
+
+
+
+--
+`timebth`: the date of birth
+{{content}}
+
+--
+<br>`timein`: the date when individuals enter the study
+{{content}}
+
+--
+<br>`timeout`: the date of the end of follow-up
+{{content}}
+
+--
+<br>the last date of follow-up is 1987-01-30, **administratively censored**
+{{content}}
+
+
+---
+class: middle
+
+# What do you think is the appropriate time scale in the Whitehall study?
+
+--
+```{r eval=FALSE}
+library(survival)
+# `Use the time-in-study` as the time scale
+M0 <- survfit(Surv(time = (`timeout - timein`)/365.25, event = chd)~1, 
+              data = whitehall)
+summary(M0$time)
+```
+
+--
+```
+ Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.1506  9.9274 16.6777 13.9595 18.1881 19.3812 
+```
+
+
+
+---
+class: middle
+
+# What do you think is the appropriate time scale in the Whitehall study?
+
+
+```{r eval=FALSE}
+# `Consider age as the time scale`
+M2 <- survfit(Surv((`timeout - timebth`)/365.25, event = chd) ~ 1, 
+              data = whitehall)
+summary(M2$time)
+```
+
+--
+```
+ Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  44.39   63.82   67.99   68.64   73.64   85.77 
+```
+
+--
+This may seem to be OK because age is an important factor in CHD death. 
+
+--
+**However, this time scale does not account for the fact that individuals in the study had to survive until the time of entry.**
+
+
+---
+class: middle
+
+
+# What do you think is the appropriate time scale in the Whitehall study?
+
+
+```{r eval=FALSE}
+# `Age as time scale` 
+M1 <- survfit(Surv(`agein, agein + (timeout - timein)/365.25`, 
+                   event = chd) ~ 1, data = whitehall)
+summary(M1$time)
+```
+
+--
+```
+Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  44.39   63.82   67.89   68.57   73.46   85.77
+```
+
+--
+**This approach allowed "left-truncation", but also consider the fact that some individuals had to survive until `timein` to be observed**
+
+
+---
+class: middle
+
+# Part 2: Fitting models to survival data
+
+
+.large[
+In the file [surv_data_practical1.csv](data/surv_data_practical1.csv), you will find some artificial survival data for 100 individuals from an exponential distirbution hazard $\lambda = 0.2165$
+]
+
+.pull-left[.med[
+```{r eval=FALSE}
+mydata <- read_csv("data/surv_data_practical1.csv")
+head(mydata)
+```
+]
+]
+
+
+.pull-right[
+```
+  surv.times
+       <dbl>
+1      0.442
+2      2.01 
+3      2.26 
+4      1.64 
+5      9.88 
+6      1.19 
+```
+]
+
+---
+class: middle
+
+# The exponential model is fitted as:
+
+```{r eval=FALSE}
+exp.model <- survreg(Surv(surv.times) ~ 1, 
+                     dist = "exponential",
+                     data = mydata)
+summary(exp.model)
+```
+--
+```
+Call:
+survreg(formula = Surv(surv.times) ~ 1, data = mydata, dist = "exponential")
+            Value Std. Error    z      p
+(Intercept)  `1.53`       0.10 15.3 <2e-16
+
+Scale fixed at 1 
+
+Exponential distribution
+Loglik(model)= -252.7   Loglik(intercept only)= -252.7
+Number of Newton-Raphson Iterations: 5 
+n= 100 
+```
+
+???
+
+`1.53` = -log(0.2165)

@@ -1,2 +1,13 @@
 base
 kableExtra
+haven
+tidyverse
+ggplot2
+tibble
+tidyr
+readr
+purrr
+dplyr
+stringr
+forcats
+survival
